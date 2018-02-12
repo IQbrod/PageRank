@@ -1,0 +1,37 @@
+Question 1:
+Le critère d'arrêt modifie les possibilités d'accès car elles prennent en compte la possibilité d'arriver à une page et de se déplacer vers la suivant depuis cette page. Donc une page accessible depuis plusieurs endroit sera plus valorisée (avec un lambda assez fort).
+
+prc = 2, lmb = 0.85
+[6.41, 4.44, 3.48, 5.96, 5.09, 2.59, 3.43, 6.18, 5.09, 4.44, 6.17, 8.64, 4.16, 5.71, 2.5, 4.38, 3.26, 8.46, 3.72, 5.88]
+
+prc = 5, lmb = 0.85
+[6.47, 4.82, 3.64, 5.34, 4.61, 2.53, 3.61, 5.33, 5.5, 4.78, 8.08, 9.14, 4.68, 5.65, 2.11, 3.64, 2.8, 5.93, 3.51, 7.81]
+
+
+
+Question 2:
+Les autorités obtiennent un meilleur page rank et les hubs ont un page rank faible.
+Comme les autorités ont beaucoup de liens entrant il est logique qu'elles soient souvent visitées.
+A l'inverse les hubs ont beaucoup de sortant permettent de valoriser plus les autres pages qu'elles ne recoivent de lien de leur part et donc obtiendront logiquement un score plus faible.
+
+
+
+Question 3:
+Avant boost: [PRC = 5, LMB = 0.85]
+[6.47, 4.82, 3.64, 5.34, 4.61, 2.53, 3.61, 5.33, 5.5, 4.78, 8.08, 9.14, 4.68, 5.65, 2.11, 3.64, 2.8, 5.93, 3.51, 7.81]
+
+Pour booster le score d'une page on ajoute d'autres pages redirigeant vers celle-ci
+Exemple : Ajout de 3 pages dans small.txt : [20 0, 21 0, 22 0]
+La page ciblée (ici 0) devrait recevoir un meilleur page rank.
+Et les pages crééent un rank très faible (car personne ne pointe dessus)
+[7.17, 3.85, 4.62, 4.8, 5.5, 3.28, 3.02, 5.83, 4.82, 5.33, 8.32, 8.55, 3.76, 4.69, 1.91, 3.07, 3.57, 5.34, 3.04, 7.58, 0.65, 0.65, 0.65]
+
+Si on relie nos nouvelles pages, elles devraient etre plus accessible (de l'une à l'autre) et donc cela devrait booster indirectement également la page ciblée.
+Exemple : Ajout de 3 pages dans small.txt : [20 0 21 22, 21 0 20 22, 22 0 20 21]
+[7.82, 4.32, 3.45, 4.69, 4.47, 2.46, 3.29, 4.99, 4.77, 4.41, 7.3, 8.88, 4.35, 5.27, 2.03, 3.17, 2.87, 5.33, 3.08, 6.98, 2.02, 2.02, 2.02]
+
+Si une page contient un lien vers elle-même elle devrait se retrouver boostée
+[7.04, 4.79, 3.61, 5.32, 4.58, 2.51, 3.6, 5.29, 5.48, 4.75, 8.02, 9.07, 4.65, 5.62, 2.1, 3.63, 2.78, 5.9, 3.5, 7.76]
+
+Question 4:
+Plus lambda tend vers 0, plus on utilisera de teleportation et plus les pages auront un page rank égal (equiprobabilité de se téléporter sur chaque page peu importe quelle que soit la page courante).
