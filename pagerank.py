@@ -1,3 +1,5 @@
+import math
+
 #ADJ => Adjacency Matrix
 #LMB => Visiting Neighbor Probability
 #RND => Rounding value
@@ -35,10 +37,13 @@ def getPageRank(trs,rnd):
 			sum += trs[i][j] * old[i]
 		new.append(sum)
 	#Ri+1 - Ri => Diff
-	diff = [abs(a_elt - b_elt) for a_elt, b_elt in zip(new, old)]
+	diff = [(a_elt - b_elt) **2 for a_elt, b_elt in zip(new, old)]
+	sm = 0
+	for i in diff:
+		sm += i
 	rnk=1
 	print ""
-	while ( all(i > 10**(-rnd) for i in diff) ):
+	while ( math.sqrt(sm) > 10**(-rnd) ):
 		rnk += 1		
 		#Rank i		
 		old = new
@@ -50,7 +55,10 @@ def getPageRank(trs,rnd):
 				sum += trs[i][j] * old[i]
 			new.append(sum)
 		#Diff
-		diff = [abs(a_elt - b_elt) for a_elt, b_elt in zip(new, old)]
+		diff = [(a_elt - b_elt) **2 for a_elt, b_elt in zip(new, old)]
+		sm = 0
+		for i in diff:
+			sm += i
 		print "Diff",rnk,":",diff
 		
 
@@ -86,7 +94,7 @@ for i in range(0,nbEtat):
 	print adjMatrix[i]
 
 ### Specify Precision : 10 ^ -(prc)
-prc = 5
+prc = 4
 ### Specify Lambda
 lmd = 0.85
 # Create Transition Matrix
